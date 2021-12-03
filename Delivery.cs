@@ -3,9 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Collision : MonoBehaviour
+public class Delivery : MonoBehaviour
 {
     
+    bool hasPackage;
+
+
     void OnCollisionEnter2D(Collision2D other)
     {
         string[] phrases = new string[6];
@@ -20,6 +23,14 @@ public class Collision : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("PassedTrigger");  
+        if(other.tag == "Package")
+        {
+            Debug.Log("Package picked up");
+            hasPackage = true;
+        }
+        else if (other.tag == "Destination" && hasPackage == true)
+        {
+            Debug.Log("Package delivered.");
+        }
     }
 }
