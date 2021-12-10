@@ -7,7 +7,7 @@ public class Delivery : MonoBehaviour
 {
     
     bool hasPackage;
-    bool delivered;
+    bool delivered = true;
 
 
     void OnCollisionEnter2D(Collision2D other)
@@ -24,16 +24,20 @@ public class Delivery : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Package" && delivered == false)
+        if(other.tag == "Package" && delivered == true)
         {
             Debug.Log("Package picked up");
             hasPackage = true;
+            delivered = false;
+            Destroy(other.gameObject);
         }
         else if (other.tag == "Destination" && hasPackage == true)
         {
             Debug.Log("Package delivered.");
             delivered = true;
             hasPackage = false;
+            Destroy(other.gameObject);
         }
+        
     }
 }
