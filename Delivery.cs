@@ -7,7 +7,7 @@ public class Delivery : MonoBehaviour
 {
     
     bool hasPackage;
-    bool delivered = true;
+    [SerializeField] float destroyTime = 0.5f;
 
 
     void OnCollisionEnter2D(Collision2D other)
@@ -24,19 +24,17 @@ public class Delivery : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Package" && delivered == true)
+        if(other.tag == "Package" && !hasPackage)
         {
             Debug.Log("Package picked up");
             hasPackage = true;
-            delivered = false;
-            Destroy(other.gameObject);
+            Destroy(other.gameObject, destroyTime);
         }
         else if (other.tag == "Destination" && hasPackage == true)
         {
             Debug.Log("Package delivered.");
-            delivered = true;
             hasPackage = false;
-            Destroy(other.gameObject);
+            Destroy(other.gameObject, destroyTime);
         }
         
     }
