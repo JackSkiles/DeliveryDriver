@@ -48,5 +48,6 @@ public class Delivery : MonoBehaviour
             Destroy(other.gameObject, destroyTime);
         }
         
+        
     }
 }
